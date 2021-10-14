@@ -7,7 +7,8 @@
 
 import UIKit
 import Parse
-import Alamofire
+import AlamofireImage
+
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
@@ -50,6 +51,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.userNameLabel.text = user.username
         
         cell.captionLabel.text = post["caption"] as? String
+        
+        let imageFile = post["image"] as! PFFileObject
+        let urlString = imageFile.url!
+        let url = URL(string: urlString)!
+        
+        cell.photoView.af_setImage(withURL: url)
         
         return cell
     }
