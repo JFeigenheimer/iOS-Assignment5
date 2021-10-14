@@ -52,7 +52,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Sign in"/>
                                 <connections>
-                                    <action selector="onSignIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wim-FW-v3m"/>
+                                    <action selector="signIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cDz-kd-OsT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgR-Vr-UkH">
@@ -61,7 +61,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
-                                    <action selector="onSignUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OnH-fQ-dZP"/>
+                                    <action selector="signUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y3U-Y0-LCw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -69,9 +69,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="onSignIn" destination="t5l-Hs-7Qf" id="9kT-j2-Ybt"/>
-                        <outlet property="passwordField" destination="VYX-P7-9Lf" id="DCl-MR-cQK"/>
-                        <outlet property="userNameField" destination="t5l-Hs-7Qf" id="Lx8-aO-8yh"/>
+                        <outlet property="passwordField" destination="VYX-P7-9Lf" id="gMJ-DA-RD9"/>
+                        <outlet property="userNameField" destination="t5l-Hs-7Qf" id="VJ5-Le-TMS"/>
                         <segue destination="9Re-0A-DN5" kind="presentation" identifier="loginSegue" id="86O-bJ-4Rr"/>
                     </connections>
                 </viewController>
