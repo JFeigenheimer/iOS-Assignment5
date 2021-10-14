@@ -610,7 +610,6 @@
 		1618617136A4D1D6E73EBA14F7FC6AB8 /* PFEventuallyQueue_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFEventuallyQueue_Private.h; path = Parse/Parse/Internal/PFEventuallyQueue_Private.h; sourceTree = "<group>"; };
 		16486A529AFBA86B56F7C60832650B0A /* PFCloudCodeController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFCloudCodeController.m; path = Parse/Parse/Internal/CloudCode/PFCloudCodeController.m; sourceTree = "<group>"; };
 		1653834FAF186BB7A07BCA0A3A66C67F /* PFOfflineObjectController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFOfflineObjectController.m; path = Parse/Parse/Internal/Object/Controller/OfflineController/PFOfflineObjectController.m; sourceTree = "<group>"; };
-		16626D6E2717B78A00E9AA3D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ../InstagramClone/CameraViewController.swift; sourceTree = "<group>"; };
 		16E7078F70132E2E53BC10A75521D3FD /* PFPushPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFPushPrivate.h; path = Parse/Parse/Internal/Push/PFPushPrivate.h; sourceTree = "<group>"; };
 		16EC873301FF6FA6BB249146D6CEA4F9 /* PFURLSessionJSONDataTaskDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFURLSessionJSONDataTaskDelegate.h; path = Parse/Parse/Internal/Commands/CommandRunner/URLSession/Session/TaskDelegate/PFURLSessionJSONDataTaskDelegate.h; sourceTree = "<group>"; };
 		17867347C869CBB851A113D6FA59354E /* PFObjectSubclassInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFObjectSubclassInfo.m; path = Parse/Parse/Internal/Object/Subclassing/PFObjectSubclassInfo.m; sourceTree = "<group>"; };
@@ -1380,7 +1379,6 @@
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
-				16626D6E2717B78A00E9AA3D /* CameraViewController.swift */,
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				0656CE04288357F0748AB498835BA03E /* Frameworks */,
 				25BCA137D3275097C06D30144D02BC82 /* Pods */,

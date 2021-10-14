@@ -91,23 +91,23 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="571" id="5Eo-YM-89U">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="571" id="5Eo-YM-89U" customClass="PostCell" customModule="InstagramClone" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="571"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Eo-YM-89U" id="uP5-gL-LL7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="571"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hj8-G9-zVv">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hj8-G9-zVv">
                                                     <rect key="frame" x="8" y="8" width="398" height="526"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" ambiguous="YES" text="Jacob" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1OR-OY-w7R">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Jacob" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1OR-OY-w7R">
                                                     <rect key="frame" x="8" y="542" width="47" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="I love photos" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAe-51-1ng">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I love photos" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAe-51-1ng">
                                                     <rect key="frame" x="63" y="542" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -116,7 +116,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hj8-G9-zVv" firstAttribute="leading" secondItem="uP5-gL-LL7" secondAttribute="leading" constant="8" id="BS3-Dq-b1q"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1OR-OY-w7R" secondAttribute="bottom" constant="-3" id="GRB-8m-uUT"/>
                                                 <constraint firstItem="XAe-51-1ng" firstAttribute="leading" secondItem="1OR-OY-w7R" secondAttribute="trailing" constant="8" id="K0h-oR-1ug"/>
+                                                <constraint firstItem="1OR-OY-w7R" firstAttribute="baseline" secondItem="XAe-51-1ng" secondAttribute="baseline" id="OT6-3w-lv6"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XAe-51-1ng" secondAttribute="bottom" constant="8" id="QCM-vd-Wkn"/>
                                                 <constraint firstItem="hj8-G9-zVv" firstAttribute="top" secondItem="uP5-gL-LL7" secondAttribute="top" constant="8" id="Rqg-Qa-Pqh"/>
                                                 <constraint firstAttribute="trailing" secondItem="hj8-G9-zVv" secondAttribute="trailing" constant="8" id="b8X-Ka-rjS"/>
@@ -126,6 +128,11 @@
                                                 <constraint firstItem="XAe-51-1ng" firstAttribute="top" secondItem="hj8-G9-zVv" secondAttribute="bottom" constant="8" id="uNs-9N-qRQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="captionLabel" destination="XAe-51-1ng" id="SWY-Yx-gn5"/>
+                                            <outlet property="photoView" destination="hj8-G9-zVv" id="e9H-uZ-yUL"/>
+                                            <outlet property="userNameLabel" destination="1OR-OY-w7R" id="tiN-Ho-Pzj"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -140,6 +147,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="rmm-VU-aga" id="lTB-AD-oJZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqn-cn-UjK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
