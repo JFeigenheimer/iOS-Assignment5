@@ -141,6 +141,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="Cvs-Jk-Y7A">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="CTm-XV-zJK"/>
                         <barButtonItem key="rightBarButtonItem" title="+" image="insta_camera_btn" id="CXS-NI-SVe">
                             <connections>
                                 <segue destination="oE1-aY-0nD" kind="presentation" id="XO9-w3-0JU"/>
@@ -224,7 +225,7 @@
         <!--Navigation Controller-->
         <scene sceneID="VhG-jz-wZq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Re-0A-DN5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FeedNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="9Re-0A-DN5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QZo-ma-ek9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
