@@ -8,11 +8,13 @@
 import UIKit
 import Parse
 import AlamofireImage
+import MessageInputBar
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
     
+    let commentBar = MessageInputBar()
     var posts = [PFObject]()
     
     override func viewDidLoad() {
@@ -23,11 +25,21 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
     }
     
+    override var inputAccessoryView: UIView? // Commentbar magic apparently related to MenuInputBar pod
+    {
+        return commentBar
+    }
+    
+    override var canBecomeFirstResponder: Bool // Same
+    {
+        return true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let query = PFQuery(className: "Posts")
-        query.includeKey("author")
+        query.includeKeys(["author", "comments", "comments.author"])
         query.limit = 20
         
         query.findObjectsInBackground { (posts,error) in
@@ -40,29 +52,54 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+            let post = posts[section]
+            let comments = (post["comments"] as? [PFObject]) ?? [] //Nil operator leftside if not nil, right side if nil
+        
+            return comments.count + 1 //Creates a table with the number of comments from the post, as well as for the image itself being the +1
+                // was original just count of posts, but needs to include amount of comments now for each and add that in as well
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
-        let post = posts[indexPath.row]
         
-        let user = post["author"] as! PFUser
-        cell.userNameLabel.text = user.username
+        let post = posts[indexPath.section]
+        let comments = (post["comments"] as? [PFObject]) ?? []
         
-        cell.captionLabel.text = post["caption"] as? String
-        
-        let imageFile = post["image"] as! PFFileObject
-        let urlString = imageFile.url!
-        let url = URL(string: urlString)!
-        
-        cell.photoView.af_setImage(withURL: url)
-        
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+            
+            let user = post["author"] as! PFUser
+            cell.userNameLabel.text = user.username
+            
+            cell.captionLabel.text = post["caption"] as? String
+            
+            let imageFile = post["image"] as! PFFileObject
+            let urlString = imageFile.url!
+            let url = URL(string: urlString)!
+            
+            cell.photoView.af_setImage(withURL: url)
+            
+            return cell
+        }
+        else
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
+            
+            let comment = comments[indexPath.row - 1]
+            cell.nameLabel.text = comment["text"] as? String
+            
+            let user = comment["author"] as! PFUser
+            cell.nameLabel.text = user.username
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
+        let post = posts[indexPath.section] // Posts in comments? Previous posts / comments from those posts. Each post will have own section in numberOfSections
         
         let comment = PFObject(className: "Comments") // Comments come from database
         comment["text"] = "This is a random comment" // Comment text
@@ -78,8 +115,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else
             {
-                print("Error saving comment")
+                print("")
             }
+        }
     }
 
     /*
