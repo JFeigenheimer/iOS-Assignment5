@@ -15,6 +15,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     let commentBar = MessageInputBar()
+    var showsCommentBar = false // Toggles commentbar in canBecomeFirstResponder
     var posts = [PFObject]()
     
     override func viewDidLoad() {
@@ -23,6 +24,19 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        //Input bars work with tableview natively
+        tableView.keyboardDismissMode = .interactive // dissmisses keyboard by dragging it down
+        
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillBeHidden(note: Notification) // Grab NotificationCenter, I want to observe event (Keyboard hides) call this function
+    {
+        commentBar.inputTextView.text = nil
+        showsCommentBar = false
+        becomeFirstResponder()
     }
     
     override var inputAccessoryView: UIView? // Commentbar magic apparently related to MenuInputBar pod
@@ -32,7 +46,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override var canBecomeFirstResponder: Bool // Same
     {
-        return true
+        return showsCommentBar // Keeps inputbar from showing as a default
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,7 +70,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let post = posts[section]
             let comments = (post["comments"] as? [PFObject]) ?? [] //Nil operator leftside if not nil, right side if nil
         
-            return comments.count + 1 //Creates a table with the number of comments from the post, as well as for the image itself being the +1
+            return comments.count + 2 //Creates a table with the number of comments from the post, as well as for the image itself, and the addComment cell making it +2
                 // was original just count of posts, but needs to include amount of comments now for each and add that in as well
     }
     
@@ -69,7 +83,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let post = posts[indexPath.section]
         let comments = (post["comments"] as? [PFObject]) ?? []
         
-        if indexPath.row == 0 {
+        if indexPath.row == 0 { // If the row is the image/ caption
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
             
             let user = post["author"] as! PFUser
@@ -85,7 +99,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             return cell
         }
-        else
+        else if indexPath.row <= comments.count // If within the bounds of the comments.
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
             
@@ -96,28 +110,42 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.nameLabel.text = user.username
             return cell
         }
+        
+        else // No longer in the bounds of comments so puts the AddCommentCell at the end.
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentCell")!
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = posts[indexPath.section] // Posts in comments? Previous posts / comments from those posts. Each post will have own section in numberOfSections
         
-        let comment = PFObject(className: "Comments") // Comments come from database
-        comment["text"] = "This is a random comment" // Comment text
-        comment["post"] = post //The post it's linked to
-        comment["author"] = PFUser.current()! //User of the comment
+        let comments = (post["comments"] as? [PFObject]) ?? [] // Comments come from database
         
-        post.add(comment, forKey: "comments")
-        
-        post.saveInBackground {(success, error) in
-            if success
-            {
-                print("Comment saved")
-            }
-            else
-            {
-                print("")
-            }
+        if indexPath.row == comments.count + 1
+        {
+            showsCommentBar = true
+            becomeFirstResponder() // Evaluates and changes value
+            commentBar.inputTextView.becomeFirstResponder()
         }
+//        comment["text"] = "This is a random comment" // Comment text
+//        comment["post"] = post //The post it's linked to
+//        comment["author"] = PFUser.current()! //User of the comment
+//
+//        post.add(comment, forKey: "comments")
+//
+//        post.saveInBackground {(success, error) in
+//            if success
+//            {
+//                print("Comment saved")
+//            }
+//            else
+//            {
+//                print("")
+//            }
+//        }
     }
 
     /*
