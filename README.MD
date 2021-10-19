@@ -22,7 +22,7 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![](https://i.imgur.com/HsAef2n.gif)
+[Walkthrough](https://imgur.com/a/MYPZMQE)
 
 
 # Parstagram - Part I
